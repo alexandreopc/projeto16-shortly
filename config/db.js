@@ -6,19 +6,26 @@ dotenv.config()
 const { Pool } = pg
 
 const databaseConfig = {
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  host: "localhost",
+  port: 5432,
+  user: "postgres",
+  password: "123",
+  database: "shortly",
 }
+
+// const databaseConfig = {
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// }
 
 const db = new Pool(databaseConfig)
 
-try {
-  await db.connect()
-  console.log(`Conectado ao banco de dados`)
-} catch (e) {
-  console.log(`Erro ao conectar no banco de dados: ${e}`, e)
-}
+// const query = db.query("SELECT * FROM links")
+
+// query.then((result) => {
+//   console.log(result.rows)
+// })
 
 export default db

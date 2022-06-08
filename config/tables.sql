@@ -1,10 +1,11 @@
 -- CREATE DATABASE "shortly";
 
-CREATE TABLE "public.usuarios" (
+CREATE TABLE "usuarios" (
 	"id" serial NOT NULL,
 	"name" TEXT NOT NULL,
 	"email" TEXT NOT NULL UNIQUE,
-	"linksCount" integer NOT NULL DEFAULT '0',
+	"password" TEXT NOT NULL,
+	"linksCount" integer DEFAULT '0',
 	"createdAt" DATE DEFAULT NOW(),
 	CONSTRAINT "usuarios_pk" PRIMARY KEY ("id")
 ) WITH (
@@ -13,7 +14,7 @@ CREATE TABLE "public.usuarios" (
 
 
 
-CREATE TABLE "public.sessoes" (
+CREATE TABLE "sessoes" (
 	"id" serial NOT NULL,
 	"usuarioId" integer NOT NULL,
 	"token" TEXT NOT NULL UNIQUE,
@@ -25,11 +26,11 @@ CREATE TABLE "public.sessoes" (
 
 
 
-CREATE TABLE "public.links" (
+CREATE TABLE "links" (
 	"id" serial NOT NULL,
 	"shortUrl" TEXT NOT NULL,
 	"url" TEXT NOT NULL,
-	"visitCount" integer NOT NULL DEFAULT '0',
+	"visitCount" integer DEFAULT '0',
 	"usuarioId" integer NOT NULL,
 	"createdAt" DATE DEFAULT NOW(),
 	CONSTRAINT "links_pk" PRIMARY KEY ("id")
@@ -43,7 +44,3 @@ CREATE TABLE "public.links" (
 ALTER TABLE "sessoes" ADD CONSTRAINT "sessoes_fk0" FOREIGN KEY ("usuarioId") REFERENCES "usuarios"("id");
 
 ALTER TABLE "links" ADD CONSTRAINT "links_fk0" FOREIGN KEY ("usuarioId") REFERENCES "usuarios"("id");
-
-
-
-
