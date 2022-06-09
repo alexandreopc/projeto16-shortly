@@ -20,12 +20,23 @@ export async function getLinkInfos(req, res) {
   const [link] = links
 
   if (!link) {
-    res.sendStatus(404)
+    return res.sendStatus(404)
   }
 
-  const newCount = link.visitCount + 1
-  await urlRepository.insertVisit(id, newCount)
-  delete link.visitCount
-
   res.status(200).send(link)
+}
+
+export async function openLink(req, res) {
+  const { shortUrl } = req.params
+  const { rows: counts } = await urlRepository.getByShortUrl(shortUrl)
+  const [count] = counts
+
+  if (!count) {
+    return res.sendStatus(404)
+  }
+
+  const newCount = count.visitCount + 1
+  await urlRepository.insertVisit(shortUrl, newCount)
+
+  res.status(200).redirect(count.url)
 }

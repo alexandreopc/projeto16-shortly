@@ -17,12 +17,21 @@ async function getById(id) {
   )
 }
 
-async function insertVisit(id, count) {
+async function insertVisit(shortUrl, count) {
   return db.query(
     `UPDATE links 
     SET "visitCount"=$1
-    WHERE id=$2`,
-    [count, id]
+    WHERE "shortUrl"=$2`,
+    [count, shortUrl]
+  )
+}
+
+async function getByShortUrl(shortUrl) {
+  return db.query(
+    `SELECT l."visitCount", l.url
+      FROM links l
+      WHERE "shortUrl"=$1`,
+    [shortUrl]
   )
 }
 
@@ -30,4 +39,5 @@ export const urlRepository = {
   insert,
   getById,
   insertVisit,
+  getByShortUrl,
 }
