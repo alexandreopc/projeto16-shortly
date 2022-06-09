@@ -10,7 +10,7 @@ export async function signUp(req, res) {
   const { name, email } = req.body
   try {
     const SALT = process.env.SALT
-    const passwordHash = bcrypt.hashSync(req.body.password, SALT)
+    const passwordHash = bcrypt.hashSync(req.body.password, Number(SALT))
 
     await db.query(
       `INSERT INTO usuarios (name, email, password) VALUES ($1, $2, $3)`,
