@@ -40,3 +40,21 @@ export async function openLink(req, res) {
 
   res.status(200).redirect(count.url)
 }
+
+export async function deleteLink(req, res) {
+  const { id } = req.params
+  const { user } = res.locals
+
+  const { rows: links } = await urlRepository.getById(id)
+  const [link] = links
+
+  if (!link) {
+    return res.sendStatus(404)
+  }
+  if (user.id != link.usuarioId) {
+    return res.sendStatus(401)
+  }
+
+  await urlRepository.deleteLink(id)
+  res.sendStatus(204)
+}

@@ -10,7 +10,7 @@ async function insert(shortUrl, url, id) {
 
 async function getById(id) {
   return db.query(
-    `SELECT l.id, l."shortUrl", l.url, l."visitCount"
+    `SELECT *
     FROM links l
     WHERE id=$1`,
     [id]
@@ -35,9 +35,18 @@ async function getByShortUrl(shortUrl) {
   )
 }
 
+async function deleteLink(id) {
+  return db.query(
+    `DELETE FROM links 
+    WHERE id=$1`,
+    [id]
+  )
+}
+
 export const urlRepository = {
   insert,
   getById,
   insertVisit,
   getByShortUrl,
+  deleteLink,
 }
