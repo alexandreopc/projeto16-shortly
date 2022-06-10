@@ -1,4 +1,3 @@
-import db from "../config/db.js"
 import { nanoid } from "nanoid"
 
 import { urlRepository } from "../repositories/urlRepository.js"
@@ -22,7 +21,9 @@ export async function getLinkInfos(req, res) {
   if (!link) {
     return res.sendStatus(404)
   }
-
+  delete link.visitCount
+  delete link.usuarioId
+  delete link.createdAt
   res.status(200).send(link)
 }
 
