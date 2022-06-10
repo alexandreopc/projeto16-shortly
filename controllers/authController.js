@@ -19,7 +19,7 @@ export async function signUp(req, res) {
     return res.sendStatus(201)
   } catch (e) {
     console.log("Erro ao criar usuario", e)
-    return res.sendStatus(422)
+    return res.sendStatus(500)
   }
 }
 
@@ -52,6 +52,6 @@ export async function signIn(req, res) {
     return res.sendStatus(422)
   } catch (e) {
     console.log("Erro ao logar usuario", e)
-    return res.sendStatus(422)
+    return res.sendStatus(500)
   }
 }

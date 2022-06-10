@@ -1,11 +1,11 @@
 import { Router } from "express"
 
-import { getUser } from "../controllers/userController.js"
+import { getUser, ranking } from "../controllers/userController.js"
 import { validateToken } from "../middlewares/authMiddleware.js"
 
 const userRouter = Router()
 
 userRouter.get("/users/:id", validateToken, getUser)
-userRouter.get("/ranking")
+userRouter.get("/ranking", ranking)
 
 export default userRouter
